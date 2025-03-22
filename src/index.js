@@ -64,7 +64,18 @@ function handleFormSubmission(event){
     inputedVotes.value= ""
 }
 
+function resetListener(){
+    const resetBtn = document.getElementById("reset-btn")
+    resetBtn.addEventListener("click",resetVotes)
+
+    function resetVotes(){
+        let charVotes = document.getElementById("vote-count")
+        charVotes.textContent = 0
+    }
+}
+
 function main (){
     fetchNames()
     addSubmitListener()
+    resetListener()
 }
