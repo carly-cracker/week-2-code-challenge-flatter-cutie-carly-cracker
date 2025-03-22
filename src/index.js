@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded',main)
 
 const topDiv = document.getElementById("character-bar")
-let charactersData = []
 function fetchNames (){
     return fetch("http://localhost:3000/characters")
     .then((res)=> res.json())
@@ -41,8 +40,31 @@ console.log('next step')
  const charVotes = document.getElementById("vote-count")
  charVotes.textContent = character.votes
 }
-console.log("happy") 
+console.log("happy")
+
+function addSubmitListener(){
+    const form = document.getElementById("votes-form")
+    form.addEventListener("submit", handleFormSubmission)
+}
+
+function handleFormSubmission(event){
+    event.preventDefault();
+
+    const inputedVotes = document.getElementById("votes")
+    const charVotes = document.getElementById("vote-count")
+
+    votesToAdd = parseInt(inputedVotes.value,10)
+    if (isNaN(votesToAdd) || votesToAdd < 0) {
+        alert("Please enter a valid number");
+        return;}
+
+    const currentVotes = parseInt(charVotes.textContent,10)
+    charVotes.textContent = currentVotes + votesToAdd
+
+    inputedVotes.value= ""
+}
 
 function main (){
     fetchNames()
+    addSubmitListener()
 }
