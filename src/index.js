@@ -41,7 +41,7 @@ console.log('next step')
  const charVotes = document.getElementById("vote-count")
  charVotes.textContent = character.votes
 }
-console.log("happy")
+console.log("happy") 
 
 function main (){
     fetchNames()
