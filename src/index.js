@@ -28,9 +28,9 @@ function fetchDetails (){
     .catch(error => console.error("Error fetching character details:", error))
 }
 function HandleCharClick(character){
-console.log('next step')
+console.log('character clicked')
  const charName = document.getElementById("name")
- console.log('best')
+ console.log('charName defined')
  charName.innerHTML = character.name
 
  const charImg = document.querySelector("#detailed-info img")
@@ -60,6 +60,7 @@ function handleFormSubmission(event){
 
     const currentVotes = parseInt(charVotes.textContent,10)
     charVotes.textContent = currentVotes + votesToAdd
+    console.log("votes tallied")
 
     inputedVotes.value= ""
 }
@@ -71,11 +72,51 @@ function resetListener(){
     function resetVotes(){
         let charVotes = document.getElementById("vote-count")
         charVotes.textContent = 0
+        console.log("votes has been reset")
     }
+}
+
+function addCharSubmitListener(){
+    const addCharForm = document.getElementById("character-form")
+    addCharForm.addEventListener("submit",handleAddingChar)
+    console.log("new char details have been submitted")
+}
+function handleAddingChar(event){
+    console.log("im working 2")
+    event.preventDefault()
+    
+    const newCharName = document.querySelector("#character-form input[name='name']").value
+    const newCharImage = document.getElementById("image-url").value
+    console.log("User Input - Name:", newCharName);
+    console.log("User Input - Image URL:", newCharImage);
+
+    if (!newCharName || !newCharImage) {
+        alert("Please enter both a name and an image URL.");
+        return;}
+
+        addNewChar(newCharName, newCharImage); 
+        event.target.reset()
+        console.log("the newChar details have been added ✅")
+}
+
+function addNewChar(newCharName, newCharImage){
+    const newChar ={
+        name : newCharName,
+        image : newCharImage,
+        votes : 0
+    }
+    const nameSpan = document.createElement("span")
+    nameSpan.textContent = newCharName
+    nameSpan.addEventListener("click", HandleCharClick(newChar))
+    topDiv.appendChild(nameSpan)
+        HandleCharClick(newChar)
+    
+    
 }
 
 function main (){
     fetchNames()
     addSubmitListener()
     resetListener()
+    addCharSubmitListener()
 }
