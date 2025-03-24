@@ -59,8 +59,10 @@ function handleFormSubmission(event){
         return;}
 
     const currentVotes = parseInt(charVotes.textContent,10)
-    charVotes.textContent = currentVotes + votesToAdd
+    let updatedVotes = currentVotes + votesToAdd
+    charVotes.textContent = updatedVotes
     console.log("votes tallied")
+
 
     inputedVotes.value= ""
 }
@@ -104,13 +106,26 @@ function addNewChar(newCharName, newCharImage){
         image : newCharImage,
         votes : 0
     }
+    fetch (`http://localhost:3000/characters`,{
+        method:"POST",
+        headers : {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newChar)
+    })
+    .then(res=>res.json())
+    .then(newChar=>{
     const nameSpan = document.createElement("span")
-    nameSpan.textContent = newCharName
+    nameSpan.textContent = newChar.name
     nameSpan.addEventListener("click", () =>HandleCharClick(newChar))
     topDiv.appendChild(nameSpan)
-        HandleCharClick(newChar)
+        
+    HandleCharClick(newChar)
+    })
+    .catch(err=>console.log(err))
     
 }
+
 
 function main (){
     fetchNames()
