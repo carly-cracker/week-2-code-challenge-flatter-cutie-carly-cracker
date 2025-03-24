@@ -82,7 +82,6 @@ function addCharSubmitListener(){
     console.log("new char details have been submitted")
 }
 function handleAddingChar(event){
-    console.log("im working 2")
     event.preventDefault()
     
     const newCharName = document.querySelector("#character-form input[name='name']").value
@@ -107,10 +106,9 @@ function addNewChar(newCharName, newCharImage){
     }
     const nameSpan = document.createElement("span")
     nameSpan.textContent = newCharName
-    nameSpan.addEventListener("click", HandleCharClick(newChar))
+    nameSpan.addEventListener("click", () =>HandleCharClick(newChar))
     topDiv.appendChild(nameSpan)
         HandleCharClick(newChar)
-    
     
 }
 
