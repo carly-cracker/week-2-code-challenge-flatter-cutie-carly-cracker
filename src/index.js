@@ -118,3 +118,4 @@ function main (){
     resetListener()
     addCharSubmitListener()
 }
+
