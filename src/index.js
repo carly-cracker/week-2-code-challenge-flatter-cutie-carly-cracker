@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded',main)
 
 const topDiv = document.getElementById("character-bar")
 function fetchNames (){
-    return fetch("http://localhost:3000/characters")
+    return fetch("https://code-challenge-2-server.vercel.app/characters")
     .then((res)=> res.json())
     .then(theNames)
     
@@ -22,7 +22,7 @@ function theNames(characters){
 
 const charInfo = document.getElementById("detailed-info")
 function fetchDetails (){
-    return fetch(`http://localhost:3000/characters/${character.id}`)
+    return fetch(`https://code-challenge-2-server.vercel.app/characters/${character.id}`)
     .then((res)=>res.json())
     .then(HandleCharClick)
     .catch(error => console.error("Error fetching character details:", error))
@@ -106,7 +106,7 @@ function addNewChar(newCharName, newCharImage){
         image : newCharImage,
         votes : 0
     }
-    fetch (`http://localhost:3000/characters`,{
+    fetch (`https://code-challenge-2-server.vercel.app/characters`,{
         method:"POST",
         headers : {
             "Content-Type": "application/json"
